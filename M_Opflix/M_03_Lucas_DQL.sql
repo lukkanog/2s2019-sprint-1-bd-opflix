@@ -95,6 +95,22 @@ CREATE VIEW vwCategoriasPlataformas
 
 SELECT * FROM vwCategoriasPlataformas;
 
+CREATE VIEW vwLancamentosCompletos
+	AS
+	SELECT L.IdLancamento,C.Nome AS Categoria,P.Nome AS Plataforma,TL.Nome AS Tipo,L.Titulo,L.Sinopse,L.DataLancamento,L.Duracao
+	FROM Lancamentos L
+	INNER JOIN Categorias C
+	ON C.IdCategoria = L.IdCategoria
+	INNER JOIN Plataformas P
+	ON P.IdPlataforma = L.IdPlataforma
+	INNER JOIN TiposLancamentos TL
+	ON TL.IdTipoLancamento = L.IdTipoLancamento
+
+SELECT * FROM vwLancamentosCompletos;
+
+
+
+
 /*PROCEDURE PROCEDURE PROCEDURE PROCEDURE PROCEDURE PROCEDURE*/
 
 CREATE PROCEDURE ProcurarPorEmail @Email VARCHAR(255)
@@ -128,6 +144,17 @@ EXEC ProcurarPorCategoria 'animação'
 EXEC ProcurarPorIdCategoria 5
 
 
+CREATE PROCEDURE VerPrimeiroLancamento @Titulo VARCHAR(255)
+		AS
+		DECLARE @dataminima DATE
+		SET @dataminima = (SELECT MIN(DataLancamento) FROM Lancamentos  WHERE Titulo LIKE @Titulo)
+
+		SELECT * FROM LANCAMENTOS WHERE Titulo LIKE @Titulo AND DataLancamento = @dataminima
+
+
+EXEC VerPrimeiroLancamento 'Guardiões da Galáxia'
+
+
 
 
 -- FUNCTION FUNCTION FUNCTION FUNCTION FUNCTION FUNCTION FUNCTION FUNCTION FUNCTION -----
@@ -157,19 +184,4 @@ CREATE FUNCTION QuantosDiasFaltam (@TituloLancamento VARCHAR(255))
 		RETURN DATEDIFF(DAY,GETDATE(),@dataTitulo)	
 	END
 
-DROP FUNCTION QuantosDiasFaltam
-
 SELECT dbo.QuantosDiasFaltam('Doutor estranho 2') AS DiasParaOLancamento
-
-
-CREATE PROCEDURE VerPrimeiroLancamento @Titulo VARCHAR(255)
-		AS
-		DECLARE @dataminima DATE
-		SET @dataminima = (SELECT MIN(DataLancamento) FROM Lancamentos  WHERE Titulo LIKE @Titulo)
-
-		SELECT * FROM LANCAMENTOS WHERE Titulo LIKE @Titulo AND DataLancamento = @dataminima
-
-
-EXEC VerPrimeiroLancamento 'The boys'
-
-SELECT * FROM vwUsuarios

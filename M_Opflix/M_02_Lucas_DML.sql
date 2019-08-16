@@ -49,7 +49,7 @@ INSERT INTO Lancamentos (IdCategoria,IdTipoLancamento,IdPlataforma,Titulo,Sinops
 			,(8,1,2,'A pequena suiça','era uma vez uma suiça baixinha',95,'2019-08-19')
 
 
-/*                       E  X  T  R  A  S               */
+/*   ~~~~~~~~~~~~~~~~~~  E  X  T  R  A  S ~~~~~~~~~~~~~~      */
 
 SELECT * FROM Usuarios
 SELECT * FROM TiposUsuarios
@@ -89,4 +89,6 @@ INSERT INTO Usuarios (IdTipoUsuario,Nome,Email,Senha,DataCadastro)
 INSERT INTO Lancamentos (IdCategoria,IdTipoLancamento,IdPlataforma,Titulo,Sinopse,Duracao,DataLancamento)
 	VALUES  (4,1,1,'Guardiões da Galáxia','tem um cara normal um ratão uma verde uma azul e um fortão meio laranja',100,'2014-07-14')
 			,(4,1,2,'Guardiões da Galáxia','tem um cara normal um ratão uma verde uma azul e um fortão meio laranja',100,'2018-01-22')
+
+
 
